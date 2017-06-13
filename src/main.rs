@@ -9,7 +9,7 @@ use std::path::Path;
 use std::process;
 use std::env;
 
-pub enum Type {
+enum Type {
     All,
     File,
     Dir,
