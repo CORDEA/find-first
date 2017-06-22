@@ -6,3 +6,4 @@ authors = ["Yoshihiro Tanaka <contact@cordea.jp>"]
 [dependencies]
 walkdir = "1"
 getopts = "0.2"
+regex = "0.2"

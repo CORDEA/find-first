@@ -1,33 +1,22 @@
 extern crate walkdir;
 extern crate getopts;
+extern crate regex;
+
+mod file_type;
 
 use walkdir::WalkDir;
 use getopts::Options;
-use std::ffi::OsStr;
 use std::fs::FileType;
 use std::path::Path;
-use std::process;
-use std::env;
-
-enum Type {
-    All,
-    File,
-    Dir,
-}
-
-impl Type {
-    pub fn from_str(sr: &str) -> Type {
-        match sr {
-            "f" => Type::File,
-            "d" => Type::Dir,
-            _ => Type::All
-        }
-    }
-}
+use std::{process,env};
+use regex::Regex;
+use file_type::Type;
 
 fn find<'a>(dir: &str, path: &'a Path) -> Option<&'a str> {
     if let Some(name) = path.file_name() {
-        if name == OsStr::new(dir) {
+        let r = Regex::new(dir).unwrap();
+        let n = name.to_str().unwrap();
+        if r.is_match(n) {
             if let Some(path) = path.to_str() {
                 return Some(path)
             }
